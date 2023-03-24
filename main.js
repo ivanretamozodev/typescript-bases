@@ -1,50 +1,90 @@
 "use strict";
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 (() => {
-    const avengers = {
-        nick: "Samuel L. Jackson",
-        ironman: "Robert Downey Jr.",
-        vision: "Paul Bettany",
-        active: true,
-        power: 1500,
+    class Mutant {
+        constructor(name, realName) {
+            this.name = name;
+            this.realName = realName;
+        }
+    }
+    class Xmen extends Mutant {
+        beHero() {
+            return "i am a hero!";
+        }
+    }
+    class Villian extends Mutant {
+        beVillian() {
+            return "i am a villian!";
+        }
+    }
+    const wolverine = new Xmen("Wolverine", "Logan");
+    const magneto = new Villian("Magneto", "Magnus");
+    const printName = (mutant) => {
+        console.log(mutant.name);
     };
-    const printAvenger = (_a) => {
-        var { vision } = _a, other = __rest(_a, ["vision"]);
-        console.log(vision, other);
-    };
-    const avengersArr = ["Captain America", "Ironman", "Hulk"];
-    const [captain, ironman] = avengersArr;
 })();
 (() => {
-    const ironMan = {
-        name: "IronMan",
-        weapon: "Armor Suit",
-    };
-    const captainAmerica = {
-        name: "Captain America",
-        weapon: "Shield",
-    };
-    const thor = {
-        name: "Thor",
-        weapon: "Mjolnir",
-    };
-    const avengers = [ironMan, thor, captainAmerica];
-    for (const avenger of avengers) {
+    class Avenger {
+        static getAvgAge() {
+            return this.name;
+        }
+        constructor(name, team, realName) {
+            this.name = name;
+            this.team = team;
+            this.realName = realName;
+        }
+        bio() {
+            return `${this.name} (${this.realName})`;
+        }
+    }
+    Avenger.avgAge = 34;
+    const antman = new Avenger("Antman", "Avengers", "Scott Lang");
+})();
+(() => {
+    class Avenger {
+        constructor(name, realName) {
+            this.name = name;
+            this.realName = realName;
+            console.log("Constructor Avengers!");
+        }
+        getFullName() {
+            return `${this.name} ${this.realName}`;
+        }
+    }
+    class Xmen extends Avenger {
+        constructor(name, realName, isMutant) {
+            super(name, realName);
+            this.isMutant = isMutant;
+            console.log("Constructor Xmen!");
+        }
+        get fullName() {
+            return `${this.name}-${this.realName}`;
+        }
+        set fullName(name) {
+            this.name = name;
+        }
+        getFullNameFromXmen() {
+            console.log(super.getFullName());
+        }
     }
 })();
 (() => {
-    const getName = () => {
-        console.log("get name");
-    };
+    class Ironman {
+        constructor(name) {
+            this.name = name;
+        }
+        static callIronman() {
+            if (!Ironman.instance) {
+                Ironman.instance = new Ironman("i am ironman");
+            }
+            return Ironman.instance;
+        }
+        changeName(name) {
+            this.name = name;
+        }
+    }
+    const ironman1 = Ironman.callIronman();
+    const ironman2 = Ironman.callIronman();
+    const ironman3 = Ironman.callIronman();
+    ironman1.changeName("another name");
 })();
 //# sourceMappingURL=main.js.map
